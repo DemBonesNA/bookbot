@@ -1,3 +1,4 @@
+import sys
 from stats import (
     word_count, 
     character_count,
@@ -5,7 +6,11 @@ from stats import (
 )
 
 def main():
-    book_path = "books/frankenstein.txt"
+    try:
+        book_path = sys.argv[1]
+    except Exception as e:
+        print(f"{e} - Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
     text = get_book_text(book_path)
     num_words = word_count(text)
     chars_dict = character_count(text)
@@ -29,5 +34,6 @@ def print_report(book_path, num_words, chars_sorted_list):
         print(f"{item['char']}: {item['num']}")
 
     print("============= END ===============")
+
 
 main()
